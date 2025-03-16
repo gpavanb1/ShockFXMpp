@@ -16,6 +16,12 @@ Note that you would need to install in the `third-party` directory
 * [SplitDAE++](https://github.com/gpavanb1/SplitDAEpp) - Clone from [here](https://github.com/gpavanb1/SplitDAEpp)
 * [SplitNewton++](https://github.com/gpavanb1/SplitNewtonpp) - Clone from [here](https://github.com/gpavanb1/SplitNewtonpp)
 
+## Benchmark
+
+The code was run with $\Delta$ t = 1e-3 with 100 grid points and backward Euler (to minimize dissipation). Further agreement can be seen with larger grid points and better shock-capturing schemes.
+
+![img](assets/benchmark.jpg)
+
 ## Whom to contact?
 
 Please direct your queries to [gpavanb1](http://github.com/gpavanb1)
