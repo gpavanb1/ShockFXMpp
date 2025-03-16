@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug main",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/bazel-bin/main",
+            "cwd": "${workspaceFolder}",
+        },
+        {
+            "name": "Debug test main",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/bazel-bin/tests/test_main",
+            "cwd": "${workspaceFolder}",
+        }
+    ]
+}

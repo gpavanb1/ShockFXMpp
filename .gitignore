@@ -1,0 +1,10 @@
+.DS_Store
+coverage
+bazel-*
+*.bazel.lock
+third-party
+
+# Coverage related
+coverage_report
+coverage.profdata
+default.profraw
