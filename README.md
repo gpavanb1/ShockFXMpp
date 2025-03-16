@@ -12,8 +12,9 @@ This can be most easily used with VSCode. There is a `tasks.json` that contains 
 The driver program is in `main.cpp` which can be compiled and executed
 
 Note that you would need to install in the `third-party` directory
-* [SplitDAEpp](https://github.com/gpavanb1/SplitDAEpp) - Clone from [here](https://github.com/gpavanb1/SplitDAEpp)
-* [SplitNewtonpp](https://github.com/gpavanb1/SplitNewtonpp) - Clone from [here](https://github.com/gpavanb1/SplitNewtonpp)
+* [SplitFXM++](https://github.com/gpavanb1/SplitFXMpp) - Clone from [here](https://github.com/gpavanb1/SplitFXMpp)
+* [SplitDAE++](https://github.com/gpavanb1/SplitDAEpp) - Clone from [here](https://github.com/gpavanb1/SplitDAEpp)
+* [SplitNewton++](https://github.com/gpavanb1/SplitNewtonpp) - Clone from [here](https://github.com/gpavanb1/SplitNewtonpp)
 
 ## Whom to contact?
 
