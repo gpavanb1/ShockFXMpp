@@ -2,7 +2,7 @@
 
 1D Shock Tube simulator demonstrating the use of SplitFXMpp
 
-# What does 'split' mean?
+## What does 'split' mean?
 The user is directed to [SplitFXM](https://raw.githubusercontent.com/gpavanb1/SplitFXM/refs/heads/main/README.md) README for further details and documentation
 
 ## How to install and execute?
