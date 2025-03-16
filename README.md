@@ -1,4 +1,4 @@
-# ShockFXM
+# ShockFXM++
 
 1D Shock Tube simulator demonstrating the use of SplitFXMpp
 
