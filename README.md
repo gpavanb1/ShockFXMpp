@@ -1,6 +1,6 @@
 # ShockFXM++
 
-1D Shock Tube simulator demonstrating the use of SplitFXMpp
+1D Shock Tube simulator demonstrating the use of SplitFXM++
 
 ## What does 'split' mean?
 The user is directed to [SplitFXM](https://raw.githubusercontent.com/gpavanb1/SplitFXM/refs/heads/main/README.md) README for further details and documentation
