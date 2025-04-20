@@ -8,3 +8,6 @@ third-party
 coverage_report
 coverage.profdata
 default.profraw
+
+# Python related
+**/__pycache__/
