@@ -4,11 +4,16 @@ local_repository(
 )
 
 local_repository(
+    name = "splitopspp",
+    path = "third-party/SplitFXMpp/third-party/SplitOPSpp",
+)
+
+local_repository(
     name = "splitdaepp",
-    path = "third-party/SplitFXMpp/third-party/SplitDAEpp",
+    path = "third-party/SplitFXMpp/third-party/SplitOPSpp/third-party/SplitDAEpp",
 )
 
 local_repository(
     name = "splitnewtonpp",
-    path = "third-party/SplitFXMpp/third-party/SplitDAEpp/third-party/SplitNewtonpp",
+    path = "third-party/SplitFXMpp/third-party/SplitOPSpp/third-party/SplitDAEpp/third-party/SplitNewtonpp",
 )
