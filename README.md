@@ -13,6 +13,7 @@ The driver program is in `main.cpp` which can be compiled and executed
 
 Note that you would need to install in the `third-party` directory
 * [SplitFXM++](https://github.com/gpavanb1/SplitFXMpp) - Clone from [here](https://github.com/gpavanb1/SplitFXMpp)
+* [SplitOPS++](https://github.com/gpavanb1/SplitOPSpp) - Clone from [here](https://github.com/gpavanb1/SplitOPSpp)
 * [SplitDAE++](https://github.com/gpavanb1/SplitDAEpp) - Clone from [here](https://github.com/gpavanb1/SplitDAEpp)
 * [SplitNewton++](https://github.com/gpavanb1/SplitNewtonpp) - Clone from [here](https://github.com/gpavanb1/SplitNewtonpp)
 
