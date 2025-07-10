@@ -48,8 +48,8 @@ int main()
 
     // Evolve in time (using a small time step due to the shock)
     std::vector<int> split_locs = {1};
-    for (int i = 0; i < 100; i++)
-        s->step_sim(2e-3, split_locs, "NoSplit", "Euler");
+    for (int i = 0; i < 200; i++)
+        s->step_sim(1e-3, split_locs, "NoSplit", "Euler");
 
     // Get the primitive values
     std::vector<Eigen::VectorXd> domain_primitives;
