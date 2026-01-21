@@ -1,1 +1,1 @@
-build --macos_minimum_os=10.13
+build --macos_minimum_os=12.0

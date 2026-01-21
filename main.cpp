@@ -17,7 +17,7 @@ int main()
     auto m = std::make_shared<Euler1DConservative>(1.4, method);
 
     // Create a domain for the shock tube
-    auto d = Domain::from_size(100, 1, 1, {"rho", "rhou", "E"});
+    auto d = Domain::from_size_1d(100, 1, 1, {"rho", "rhou", "E"});
 
     // Set default initial conditions
     auto ics = std::map<std::string, std::string>{};
@@ -38,9 +38,9 @@ int main()
     int rho_idx = d->component_index("rho");
     int rhou_idx = d->component_index("rhou");
     int E_idx = d->component_index("E");
-    for (auto &cell : d->interior())
+    for (auto& cell : d->interior())
     {
-        double x = cell->x();
+        double x = cell->coords()[0];
         cell->set_value(rho_idx, x < 0.5 ? 1.0 : 0.125);
         cell->set_value(rhou_idx, 0.0);
         cell->set_value(E_idx, (x < 0.5) ? 2.5 : 0.25);
@@ -53,7 +53,7 @@ int main()
 
     // Get the primitive values
     std::vector<Eigen::VectorXd> domain_primitives;
-    for (auto &cell : d->interior())
+    for (auto& cell : d->interior())
     {
         Eigen::VectorXd values = cell->values();
         Eigen::VectorXd primitives = m->conservative_to_primitive(values);
@@ -64,7 +64,7 @@ int main()
     auto interior = d->interior();
     for (int i = 0; i < interior.size(); i++)
     {
-        std::cout << interior[i]->x() << " ";
+        std::cout << interior[i]->coords()[0] << " ";
         std::cout << domain_primitives[i].transpose() << std::endl;
     }
 }

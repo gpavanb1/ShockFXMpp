@@ -6,14 +6,14 @@
 FVTransportEquation::FVTransportEquation(FunctionType F, FunctionType D, FunctionType S, JacobianType dFdU)
     : F(F), D(D), S(S), dFdU(dFdU) {}
 
-Eigen::VectorXd FVTransportEquation::non_stiff_residuals(const std::vector<CellPtr> &cell_sub, Schemes scheme, const std::map<std::string, double> &scheme_opts) const
+Eigen::VectorXd FVTransportEquation::non_stiff_residuals(const std::vector<CellPtr>& cell_sub, Schemes scheme, const std::map<std::string, double>& scheme_opts) const
 {
     // Cell width
     // Calculate for center cell
     // Average of distance between adjacent cell centers
     int ic = cell_sub.size() / 2;
-    double dxw = cell_sub[ic]->x() - cell_sub[ic - 1]->x();
-    double dxe = cell_sub[ic + 1]->x() - cell_sub[ic]->x();
+    double dxw = cell_sub[ic]->coords()[0] - cell_sub[ic - 1]->coords()[0];
+    double dxe = cell_sub[ic + 1]->coords()[0] - cell_sub[ic]->coords()[0];
     double dx = 0.5 * (dxw + dxe);
 
     auto [Fw, Fe] = fluxes(F, cell_sub, scheme, dFdU);
@@ -21,7 +21,7 @@ Eigen::VectorXd FVTransportEquation::non_stiff_residuals(const std::vector<CellP
     return S(cell_sub[0]) - (1 / dx) * (Fe - Fw) + (1 / dx) * (DFe - DFw);
 }
 
-Eigen::VectorXd FVTransportEquation::stiff_residuals(const std::vector<CellPtr> &cell_sub, Schemes scheme, const std::map<std::string, double> &scheme_opts) const
+Eigen::VectorXd FVTransportEquation::stiff_residuals(const std::vector<CellPtr>& cell_sub, Schemes scheme, const std::map<std::string, double>& scheme_opts) const
 {
     int size = cell_sub[0]->values().size();
     return Eigen::VectorXd::Zero(size);

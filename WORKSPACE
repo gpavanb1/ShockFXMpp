@@ -17,3 +17,9 @@ local_repository(
     name = "splitnewtonpp",
     path = "third-party/SplitFXMpp/third-party/SplitOPSpp/third-party/SplitDAEpp/third-party/SplitNewtonpp",
 )
+
+new_local_repository(
+    name = "mfem",
+    path = "third-party/SplitFXMpp/third-party/mfem",
+    build_file = "@splitfxmpp//ext:mfem.BUILD",
+)

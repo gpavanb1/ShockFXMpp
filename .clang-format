@@ -1,0 +1,11 @@
+BasedOnStyle: Google
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 0
+SortIncludes: false
+BreakBeforeBraces: Allman
+IncludeBlocks: Preserve
+ReflowComments: false
+DerivePointerAlignment: false
+PointerAlignment: Left
