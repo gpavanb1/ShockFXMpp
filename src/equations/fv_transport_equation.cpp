@@ -8,17 +8,22 @@ FVTransportEquation::FVTransportEquation(FunctionType F, FunctionType D, Functio
 
 Eigen::VectorXd FVTransportEquation::non_stiff_residuals(const std::vector<CellPtr>& cell_sub, Schemes scheme, const std::map<std::string, double>& scheme_opts) const
 {
-    // Cell width
-    // Calculate for center cell
-    // Average of distance between adjacent cell centers
-    int ic = cell_sub.size() / 2;
+    int target_size = stencil_sizes.at(scheme);
+    if (cell_sub.size() != (size_t)target_size)
+    {
+        throw SFXM("FVTransportEquation: Improper stencil size for scheme. Expected " + std::to_string(target_size) + ", got " + std::to_string(cell_sub.size()));
+    }
+
+    int ic = target_size / 2;
+
     double dxw = cell_sub[ic]->coords()[0] - cell_sub[ic - 1]->coords()[0];
     double dxe = cell_sub[ic + 1]->coords()[0] - cell_sub[ic]->coords()[0];
     double dx = 0.5 * (dxw + dxe);
 
     auto [Fw, Fe] = fluxes(F, cell_sub, scheme, dFdU);
     auto [DFw, DFe] = diffusion_fluxes(D, cell_sub);
-    return S(cell_sub[0]) - (1 / dx) * (Fe - Fw) + (1 / dx) * (DFe - DFw);
+
+    return S(cell_sub[ic]) - (1 / dx) * (Fe - Fw) + (1 / dx) * (DFe - DFw);
 }
 
 Eigen::VectorXd FVTransportEquation::stiff_residuals(const std::vector<CellPtr>& cell_sub, Schemes scheme, const std::map<std::string, double>& scheme_opts) const
