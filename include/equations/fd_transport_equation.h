@@ -11,20 +11,20 @@
 
 class FDTransportEquation : public Equation
 {
-public:
+   public:
     FDTransportEquation(FunctionType F, FunctionType D, FunctionType S);
 
     Eigen::VectorXd dae_mask(int size) const override;
     Eigen::VectorXd stiff_mask(int size) const override;
     Eigen::VectorXd non_stiff_mask(int size) const override;
 
-private:
+    Eigen::VectorXd stiff_residuals(const std::vector<CellPtr>& cell_sub) const override;
+    Eigen::VectorXd non_stiff_residuals(const std::vector<CellPtr>& cell_sub) const override;
+
+   private:
     FunctionType F;
     FunctionType D;
     FunctionType S;
-
-    Eigen::VectorXd stiff_residuals(const std::vector<CellPtr> &cell_sub, Schemes scheme, const std::map<std::string, double> &scheme_opts = {}) const;
-    Eigen::VectorXd non_stiff_residuals(const std::vector<CellPtr> &cell_sub, Schemes scheme, const std::map<std::string, double> &scheme_opts = {}) const;
 };
 
-#endif // FD_TRANSPORT_EQUATION_H
+#endif  // FD_TRANSPORT_EQUATION_H

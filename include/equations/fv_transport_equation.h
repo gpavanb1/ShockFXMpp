@@ -12,21 +12,21 @@
 
 class FVTransportEquation : public Equation
 {
-public:
+   public:
     FVTransportEquation(FunctionType F, FunctionType D, FunctionType S, JacobianType dFdU);
 
     Eigen::VectorXd dae_mask(int size) const override;
     Eigen::VectorXd stiff_mask(int size) const override;
     Eigen::VectorXd non_stiff_mask(int size) const override;
 
-private:
+    Eigen::VectorXd stiff_residuals(const std::vector<CellPtr>& cell_sub) const override;
+    Eigen::VectorXd non_stiff_residuals(const std::vector<CellPtr>& cell_sub) const override;
+
+   private:
     FunctionType F;
     FunctionType D;
     FunctionType S;
     JacobianType dFdU;
-
-    Eigen::VectorXd stiff_residuals(const std::vector<CellPtr> &cell_sub, Schemes scheme, const std::map<std::string, double> &scheme_opts = {}) const;
-    Eigen::VectorXd non_stiff_residuals(const std::vector<CellPtr> &cell_sub, Schemes scheme, const std::map<std::string, double> &scheme_opts = {}) const;
 };
 
-#endif // FV_TRANSPORT_H
+#endif  // FV_TRANSPORT_H
