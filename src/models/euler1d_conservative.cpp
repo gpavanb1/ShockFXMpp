@@ -1,7 +1,7 @@
 #include <string>
 #include "Eigen/Dense"
-#include "equations/fd_transport_equation.h"
-#include "equations/fv_transport_equation.h"
+#include "splitfxm/equations/fd_transport.h"
+#include "splitfxm/equations/fv_transport.h"
 #include "models/euler1d_conservative.h"
 
 Euler1DConservative::Euler1DConservative(double gamma, std::string method, double eps) : Model(nullptr), gamma_(gamma), equation_(nullptr)

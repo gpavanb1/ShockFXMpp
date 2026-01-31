@@ -17,7 +17,7 @@ int main()
     auto m = std::make_shared<Euler1DConservative>(1.4, method);
 
     // Create a domain for the shock tube
-    auto d = Domain::from_size_1d(100, 1, 1, {"rho", "rhou", "E"});
+    auto d = Domain::from_size_1d(100, 3, 3, {"rho", "rhou", "E"});
 
     // Set default initial conditions
     auto ics = std::map<std::string, std::string>{};
@@ -32,7 +32,7 @@ int main()
     bcs["E"]["RIGHT"] = std::make_pair("neumann", 0.0);
 
     // Create a simulation object
-    auto s = std::make_shared<Simulation>(d, m, ics, bcs, Schemes::FV_LAX_FRIEDRICHS);
+    auto s = std::make_shared<Simulation>(d, m, ics, bcs, Schemes::FV_WENO5);
 
     // Initial conditions
     int rho_idx = d->component_index("rho");
