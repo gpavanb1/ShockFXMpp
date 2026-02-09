@@ -5,3 +5,5 @@
 bazel_dep(name = "googletest", version = "1.15.2")
 bazel_dep(name = "spdlog", version = "1.11.0")
 bazel_dep(name = "eigen", version = "3.4.0.bcr.3")
+bazel_dep(name = "pybind11_bazel", version = "3.0.0")
+bazel_dep(name = "rules_python", version = "1.0.0")
