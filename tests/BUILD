@@ -14,11 +14,16 @@ cc_test(
     ],
     includes = ["include"],  # Add this to include headers directly
     copts = [
-    "-std=c++17",                   # Enable C++17
-    "-g",
-    "-fsanitize=address", "-fno-omit-frame-pointer",
-    ],
-    linkopts = ["-fsanitize=address"],
+        "-std=c++17",                   # Enable C++17
+        "-g",
+    ] + select({
+        "//:asan_enabled": ["-fsanitize=address", "-fno-omit-frame-pointer"],
+        "//conditions:default": [],
+    }),
+    linkopts = select({
+        "//:asan_enabled": ["-fsanitize=address"],
+        "//conditions:default": [],
+    }),
     linkstatic = 1,
     timeout = "moderate"
 )

@@ -1,1 +1,21 @@
 build --macos_minimum_os=12.0
+
+# 1. Force Bazel to use your custom LLVM 14 by providing absolute paths here
+build --action_env=CC=/usr/local/opt/llvm/bin/clang
+build --action_env=CXX=/usr/local/opt/llvm/bin/clang++
+build --action_env=PATH=/usr/local/opt/llvm/bin:/usr/bin:/bin
+common --repo_env=CC=/usr/local/opt/llvm/bin/clang
+common --repo_env=CXX=/usr/local/opt/llvm/bin/clang++
+
+# 2. Parallelism & System Headers (Required for Clang 14 on macOS)
+build --copt=-fopenmp
+build --linkopt=-fopenmp --linkopt=-L/usr/local/opt/llvm/lib --linkopt=-lomp
+build --linkopt="-Wl,-platform_version,macos,12.0,12.0"
+build --copt=-isysroot --copt=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+build --linkopt=-isysroot --linkopt=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+
+# 3. Address Sanitizer Configuration
+build:asan --copt=-fsanitize=address
+build:asan --copt=-fno-omit-frame-pointer
+build:asan --linkopt=-fsanitize=address
+build:asan --define=asan=true

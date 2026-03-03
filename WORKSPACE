@@ -23,3 +23,9 @@ new_local_repository(
     path = "third-party/SplitFXMpp/third-party/mfem",
     build_file = "@splitfxmpp//ext:mfem.BUILD",
 )
+
+new_local_repository(
+    name = "raja",
+    path = "third-party/SplitFXMpp/third-party/raja",
+    build_file = "@splitfxmpp//ext:raja.BUILD",
+)
