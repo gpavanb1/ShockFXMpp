@@ -8,9 +8,14 @@
 #include "splitfxm/domain.h"
 #include "splitfxm/schemes.h"
 #include "splitfxm/simulation.h"
+#include "splitnewton/options.hpp"
 
-int main()
+int main(int argc, char** argv)
 {
+    // Initialize SplitNewton
+    splitnewton::initialize(argc, argv);
+
+    // Set numerical method
     std::string method = "FVM";
 
     // Euler equations with gamma for ideal gas
