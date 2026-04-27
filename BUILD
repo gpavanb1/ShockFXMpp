@@ -1,8 +1,20 @@
+# Configuration for Cantera support
+config_setting(
+    name = "use_cantera",
+    values = {"define": "SPLITFXM_USE_CANTERA=true"},
+)
+
 # Configuration for Address Sanitizer
 config_setting(
     name = "asan_enabled",
     values = {"define": "asan=true"},
 )
+
+# Shared compiler options
+_COMMON_COPTS = ["-std=c++17"] + select({
+    ":use_cantera": ["-DSPLITFXM_USE_CANTERA=1"],
+    "//conditions:default": [],
+})
 
 # Main executable
 cc_binary(
@@ -10,15 +22,18 @@ cc_binary(
     srcs = ["main.cpp"],
     deps = [
         ":shockfxm_lib",
-        "@spdlog//:spdlog",  # Add spdlog dependency here as well
+        "@spdlog//:spdlog",
         "@eigen",
-    ],
-    includes = ["include"],  # Add this to include headers directly
-    copts = ["-std=c++17"] + select({
+    ] + select({
+        ":use_cantera": ["@cantera//:cantera"],
+        "//conditions:default": [],
+    }),
+    includes = ["include"],
+    copts = _COMMON_COPTS + select({
         ":asan_enabled": ["-fsanitize=address", "-fno-omit-frame-pointer"],
         "//conditions:default": [],
     }),
-    linkopts = select({
+    linkopts = ["-framework Accelerate"] + select({
         ":asan_enabled": ["-fsanitize=address"],
         "//conditions:default": [],
     }),
@@ -27,24 +42,23 @@ cc_binary(
 # Library definition
 cc_library(
     name = "shockfxm_lib",
-    hdrs = glob([
-        "include/**/*.h",  # Header files in include/
-    ]),
-    srcs = glob([
-        "src/**/*.cpp",  # Source files in src/
-    ]),
+    hdrs = glob(["include/**/*.h"]),
+    srcs = glob(["src/**/*.cpp"]),
     visibility = ["//visibility:public"],
     deps = [
         "@splitfxmpp//:splitfxm_lib",
-        "@spdlog//:spdlog",  # Add spdlog dependency here as well
+        "@spdlog//:spdlog",
         "@eigen",
-    ],
-    includes = ["include"],  # Add this to include headers directly
-    copts = ["-std=c++17"] + select({
+    ] + select({
+        ":use_cantera": ["@cantera//:cantera"],
+        "//conditions:default": [],
+    }),
+    includes = ["include"],
+    copts = _COMMON_COPTS + select({
         ":asan_enabled": ["-fsanitize=address", "-fno-omit-frame-pointer"],
         "//conditions:default": [],
     }),
-    linkopts = select({
+    linkopts = ["-framework Accelerate"] + select({
         ":asan_enabled": ["-fsanitize=address"],
         "//conditions:default": [],
     }),

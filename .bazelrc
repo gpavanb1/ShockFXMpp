@@ -1,21 +1,39 @@
-build --macos_minimum_os=12.0
+build --macos_minimum_os=26.0
 
 # 1. Force Bazel to use your custom LLVM 14 by providing absolute paths here
-build --action_env=CC=/usr/local/opt/llvm/bin/clang
-build --action_env=CXX=/usr/local/opt/llvm/bin/clang++
-build --action_env=PATH=/usr/local/opt/llvm/bin:/usr/bin:/bin
-common --repo_env=CC=/usr/local/opt/llvm/bin/clang
-common --repo_env=CXX=/usr/local/opt/llvm/bin/clang++
+build --action_env=CC=/opt/homebrew/opt/llvm/bin/clang
+build --action_env=CXX=/opt/homebrew/opt/llvm/bin/clang++
+build --action_env=PATH=/opt/homebrew/opt/llvm/bin:/usr/bin:/bin
+common --repo_env=CC=/opt/homebrew/opt/llvm/bin/clang
+common --repo_env=CXX=/opt/homebrew/opt/llvm/bin/clang++
 
 # 2. Parallelism & System Headers (Required for Clang 14 on macOS)
 build --copt=-fopenmp
-build --linkopt=-fopenmp --linkopt=-L/usr/local/opt/llvm/lib --linkopt=-lomp
-build --linkopt="-Wl,-platform_version,macos,12.0,12.0"
+build --linkopt=-fopenmp --linkopt=-L/opt/homebrew/opt/llvm/lib --linkopt=-Wl,-rpath,/opt/homebrew/opt/llvm/lib
 build --copt=-isysroot --copt=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 build --linkopt=-isysroot --linkopt=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
+build --linkopt="-Wl,-platform_version,macos,26.0,26.0"
 
-# 3. Address Sanitizer Configuration
+# 3. Bazel 8/9 Compatibility
+# Re-enable WORKSPACE (disabled by default in Bazel 8)
+common --enable_workspace=true
+# Re-enable native rules in global namespace for external dependencies that haven't updated their loads
+common --incompatible_stop_exporting_language_modules=false
+# Allow empty globs for dependencies with legacy BUILD files
+common --incompatible_disallow_empty_glob=false
+
+# ShockFXMpp uses SplitFXM++'s Cantera BVP connector; this is disabled by default.
+# To enable, uncomment the line below or pass --define=SPLITFXM_USE_CANTERA=true
+# build --define=SPLITFXM_USE_CANTERA=true
+
+# 4. Address Sanitizer Configuration
 build:asan --copt=-fsanitize=address
 build:asan --copt=-fno-omit-frame-pointer
 build:asan --linkopt=-fsanitize=address
 build:asan --define=asan=true
+
+# 5. Progress Bar Configuration
+common --curses=yes
+common --show_progress_rate_limit=0
+common --color=yes
+common --isatty=1
