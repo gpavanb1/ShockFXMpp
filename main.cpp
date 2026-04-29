@@ -9,9 +9,16 @@
 #include "splitfxm/schemes.h"
 #include "splitfxm/simulation.h"
 #include "splitnewton/options.hpp"
+#include <mfem.hpp>
+#include <omp.h>
+#include <iostream>
 
 int main(int argc, char** argv)
 {
+    // Initialize MFEM device to use OpenMP for parallelization
+    mfem::Device device("omp");
+    std::cout << "Running with " << omp_get_max_threads() << " OpenMP threads." << std::endl;
+
     // Initialize SplitNewton
     splitnewton::initialize(argc, argv);
 
